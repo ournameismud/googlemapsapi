@@ -41,7 +41,10 @@ class GoogleMapsApiService extends Component
 
     public function timezone($lat, $lon, $timestamp)
     {
-        $result = $this->request('timezone', 'location=' . $lat . ',' . $lon . '&timestamp=' . $timestamp . '&key=' . $this->settings->googleMapsApiKey);
+        $apiKey = $this->settings->googleMapsApiKey;
+        if ($apiKey == '') $apiKey = Craft::$app->config->general->custom['googleApi'];
+        
+        $result = $this->request('timezone', 'location=' . $lat . ',' . $lon . '&timestamp=' . $timestamp . '&key=' . $apiKey);
         if ($result['status']) {
             return [
                 'status' => true,
@@ -57,7 +60,10 @@ class GoogleMapsApiService extends Component
 
     public function elevation($lat, $lon)
     {
-        $result = $this->request('elevation', 'locations=' . $lat . ',' . $lon . '&key=' . $this->settings->googleMapsApiKey);
+        $apiKey = $this->settings->googleMapsApiKey;
+        if ($apiKey == '') $apiKey = Craft::$app->config->general->custom['googleApi'];
+        
+        $result = $this->request('elevation', 'locations=' . $lat . ',' . $lon . '&key=' . $apiKey);
         if ($result['status']) {
             return [
                 'status' => true,
@@ -73,7 +79,10 @@ class GoogleMapsApiService extends Component
 
     public function distance($originLat, $originLon, $destinationLat, $destinationLon, $mode)
     {
-        $result = $this->request('distancematrix', 'origins=' . $originLat . ',' . $originLon . '&destinations=' . $destinationLat . ',' . $destinationLon . '&mode=' . $mode . '&key=' . $this->settings->googleMapsApiKey);
+        $apiKey = $this->settings->googleMapsApiKey;
+        if ($apiKey == '') $apiKey = Craft::$app->config->general->custom['googleApi'];                
+        
+        $result = $this->request('distancematrix', 'origins=' . $originLat . ',' . $originLon . '&destinations=' . $destinationLat . ',' . $destinationLon . '&mode=' . $mode . '&key=' . $apiKey);
         if ($result['status']) {
             return [
                 'status' => true,
@@ -89,7 +98,10 @@ class GoogleMapsApiService extends Component
 
     public function geocode($lat, $lon)
     {
-        $result = $this->request('geocode', 'latlng=' . $lat . ',' . $lon . '&key=' . $this->settings->googleMapsApiKey);
+        $apiKey = $this->settings->googleMapsApiKey;
+        if ($apiKey == '') $apiKey = Craft::$app->config->general->custom['googleApi'];
+                
+        $result = $this->request('geocode', 'latlng=' . $lat . ',' . $lon . '&key=' . $apiKey);
         if ($result['status']) {
             return [
                 'status' => true,
@@ -105,7 +117,10 @@ class GoogleMapsApiService extends Component
 
     public function placeFromText($input, $fields)
     {
-        $parameters = 'input=' . $input . '&inputtype=textquery&key=' . $this->settings->googleMapsApiKey;
+        $apiKey = $this->settings->googleMapsApiKey;
+        if ($apiKey == '') $apiKey = Craft::$app->config->general->custom['googleApi'];
+        
+        $parameters = 'input=' . $input . '&inputtype=textquery&key=' . $apiKey;
         if (!empty($fields)) {
             $parameters .= '&fields=' . $fields;
         }
@@ -125,7 +140,10 @@ class GoogleMapsApiService extends Component
 
     public function placeAutocomplete($input)
     {
-        $result = $this->request('place/autocomplete', 'input=' . $input . '&key=' . $this->settings->googleMapsApiKey);
+        $apiKey = $this->settings->googleMapsApiKey;
+        if ($apiKey == '') $apiKey = Craft::$app->config->general->custom['googleApi'];
+        
+        $result = $this->request('place/autocomplete', 'input=' . $input . '&key=' . $apiKey);
         if ($result['status']) {
             return [
                 'status' => true,
@@ -141,7 +159,10 @@ class GoogleMapsApiService extends Component
 
     public function placeDetails($placeId)
     {
-        $result = $this->request('place/details', 'placeid=' . $placeId . '&key=' . $this->settings->googleMapsApiKey);
+        $apiKey = $this->settings->googleMapsApiKey;
+        if ($apiKey == '') $apiKey = Craft::$app->config->general->custom['googleApi'];
+                
+        $result = $this->request('place/details', 'placeid=' . $placeId . '&key=' . $apiKey);
         if ($result['status']) {
             return [
                 'status' => true,
